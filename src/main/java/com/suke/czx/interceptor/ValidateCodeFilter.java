@@ -3,6 +3,9 @@ package com.suke.czx.interceptor;
 import cn.hutool.core.util.StrUtil;
 import com.suke.czx.common.exception.CustomAuthenticationException;
 import com.suke.czx.common.utils.Constant;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -10,9 +13,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * @author czx

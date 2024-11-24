@@ -10,6 +10,8 @@ import com.suke.czx.common.utils.IPUtils;
 import com.suke.czx.common.utils.SpringContextUtils;
 import com.suke.czx.modules.sys.entity.SysLoginLog;
 import com.suke.zhjg.common.autofull.util.R;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;

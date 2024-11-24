@@ -1,6 +1,6 @@
 package com.suke.czx.modules.sys.vo;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.util.List;
  * @Author yzcheng90@qq.com
  **/
 @Data
-@ApiModel(value = "菜单管理")
+@Schema(name = "SysMenuNewVO", description = "菜单管理")
 public class SysMenuNewVO implements Serializable {
 
     public Long menuId;

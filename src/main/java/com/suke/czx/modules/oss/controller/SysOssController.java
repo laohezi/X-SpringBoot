@@ -11,7 +11,7 @@ import com.suke.czx.modules.oss.cloud.ICloudStorage;
 import com.suke.czx.modules.oss.entity.SysOss;
 import com.suke.czx.modules.oss.service.SysOssService;
 import com.suke.zhjg.common.autofull.util.R;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dongliu.apk.parser.ApkFile;
@@ -36,7 +36,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("sys/oss")
 @AllArgsConstructor
-@Api(value = "SysOssController", tags = "文件上传")
+@Tag(name = "SysOssController", description = "文件上传")
 public class SysOssController extends AbstractController {
 
     private final SysOssService sysOssService;

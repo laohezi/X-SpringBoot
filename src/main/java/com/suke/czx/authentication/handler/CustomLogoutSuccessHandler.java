@@ -6,6 +6,8 @@ import com.suke.czx.common.utils.Constant;
 import com.suke.czx.common.utils.IPUtils;
 import com.suke.czx.common.utils.SpringContextUtils;
 import com.suke.czx.modules.sys.entity.SysLoginLog;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import java.util.Date;
 
 /**

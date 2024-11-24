@@ -341,6 +341,15 @@ CREATE TABLE `tb_login_log` (
   `option_terminal` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '操作终端',
   PRIMARY KEY (`log_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='登录日志管理';
+DROP TABLE IF EXISTS `book`;
+CREATE TABLE `book` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `author` VARCHAR(255) NOT NULL,
+    `cover` VARCHAR(255),
+    `rating` FLOAT,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tb_login_log

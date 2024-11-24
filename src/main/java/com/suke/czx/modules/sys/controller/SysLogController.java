@@ -9,12 +9,13 @@ import com.suke.czx.modules.sys.entity.SysLoginLog;
 import com.suke.czx.modules.sys.service.SysLogService;
 import com.suke.czx.modules.sys.service.SysLoginLogService;
 import com.suke.zhjg.common.autofull.util.R;
-import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.Map;
 
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@Api(value = "SysLogController", tags = "系统日志")
+@Tag(name = "SysLogController", description = "系统日志")
 @RequestMapping("/sys/log")
 public class SysLogController extends AbstractController {
     private final SysLogService sysLogService;

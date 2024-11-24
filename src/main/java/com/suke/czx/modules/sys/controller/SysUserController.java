@@ -17,7 +17,7 @@ import com.suke.czx.modules.sys.vo.SysMenuNewVO;
 import com.suke.czx.modules.sys.vo.UserInfoVO;
 import com.suke.zhjg.common.autofull.annotation.AutoFullData;
 import com.suke.zhjg.common.autofull.util.R;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
@@ -35,7 +35,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/sys/user")
 @AllArgsConstructor
-@Api(value = "SysUserController", tags = "系统用户")
+@Tag(name = "SysUserController", description = "系统用户")
 public class SysUserController extends AbstractController {
 
     private final SysUserService sysUserService;
@@ -48,7 +48,7 @@ public class SysUserController extends AbstractController {
     @AutoFullData
     @GetMapping(value = "/list")
     public R list(@RequestParam Map<String, Object> params) {
-        //查询列表数据
+        //查询��表数据
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
 
         //只有超级管理员，才能查看所有管理员列表
@@ -116,7 +116,6 @@ public class SysUserController extends AbstractController {
         sysUserService.updatePassword(getUserId(), password, newPassword);
         return R.ok();
     }
-
 
     /**
      * 保存用户

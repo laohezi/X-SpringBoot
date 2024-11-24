@@ -10,7 +10,7 @@ import com.suke.czx.modules.sys.entity.SysRole;
 import com.suke.czx.modules.sys.service.SysRoleService;
 import com.suke.zhjg.common.autofull.annotation.AutoFullData;
 import com.suke.zhjg.common.autofull.util.R;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +26,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/sys/role")
 @AllArgsConstructor
-@Api(value = "SysRoleController", tags = "角色管理")
+@Tag(name = "SysRoleController", description = "角色管理")
 public class SysRoleController extends AbstractController {
 
     private final SysRoleService sysRoleService;
@@ -38,7 +38,7 @@ public class SysRoleController extends AbstractController {
     @GetMapping(value = "/list")
     public R list(@RequestParam Map<String, Object> params) {
         QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
-        //如果不是超级管理员，则只查询自己创建的角色列表
+        //如果���是超级管理员，则只查询自己创建的角色列表
         if (!getUserId().equals(Constant.SUPER_ADMIN)) {
             queryWrapper.lambda().eq(SysRole::getCreateUserId, getUserId());
         }
@@ -62,7 +62,6 @@ public class SysRoleController extends AbstractController {
         final List<SysRole> list = sysRoleService.list();
         return R.ok().setData(list);
     }
-
 
     /**
      * 保存角色

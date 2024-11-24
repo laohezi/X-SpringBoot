@@ -7,6 +7,7 @@ import com.suke.czx.common.utils.HttpContextUtils;
 import com.suke.czx.common.utils.IPUtils;
 import com.suke.czx.modules.sys.entity.SysLog;
 import com.suke.czx.modules.sys.service.SysLogService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
+
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;

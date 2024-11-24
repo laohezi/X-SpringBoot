@@ -13,6 +13,7 @@ import com.suke.czx.interceptor.ValidateCodeFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,6 +44,7 @@ import java.util.List;
  **/
 @Slf4j
 @EnableWebSecurity
+@Configuration
 public class SecurityConfigurer {
 
     @Autowired
@@ -63,34 +65,35 @@ public class SecurityConfigurer {
         String[] urls = permitAll.stream().distinct().toArray(String[]::new);
 
         // 基于 token，不需要 csrf
-        http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/**").permitAll();
+        http.csrf(csrf -> csrf.disable());
         // 跨域配置
-        http.cors().configurationSource(corsConfigurationSource());
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
         // 基于 token，不需要 session
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         // 权限
-        http.authorizeRequests(authorize ->
+        http.authorizeHttpRequests(authorize ->
                 // 开放权限
-                authorize.antMatchers(urls).permitAll()
-                // 其他地址的访问均需验证权限
-                .anyRequest().authenticated());
+                authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(urls).permitAll()
+                        // 其他地址的访问均需验证权限
+                        .anyRequest().authenticated());
         // 设置登录URL
-        http.formLogin()
+        http.formLogin(form -> form
                 .loginProcessingUrl(Constant.TOKEN_ENTRY_POINT_URL)
                 .successHandler(authenticationSuccessHandler())
-                .failureHandler(authenticationFailureHandler());
+                .failureHandler(authenticationFailureHandler()));
         // 设置退出URL
-        http.logout()
+        http.logout(logout -> logout
                 .logoutUrl(Constant.TOKEN_LOGOUT_URL)
                 .logoutSuccessUrl("/sys/logout")
-                .addLogoutHandler(logoutHandler());
+                .addLogoutHandler(logoutHandler()));
         // 如果不用验证码，注释这个过滤器即可
         http.addFilterBefore(new ValidateCodeFilter(redisTemplate, authenticationFailureHandler()), UsernamePasswordAuthenticationFilter.class);
         // token 验证过滤器
-        http.addFilterBefore(new AuthenticationTokenFilter(authenticationManager(), authIgnoreConfig,redisTemplate), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new AuthenticationTokenFilter(authenticationManager(), authIgnoreConfig, redisTemplate), UsernamePasswordAuthenticationFilter.class);
         // 认证异常处理
-        http.exceptionHandling().authenticationEntryPoint(new TokenAuthenticationFailHandler());
+        http.exceptionHandling(exception -> exception.authenticationEntryPoint(new TokenAuthenticationFailHandler()));
         // 用户管理service
         http.userDetailsService(userDetailsService());
         return http.build();
@@ -110,7 +113,7 @@ public class SecurityConfigurer {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         // 开放静态资源权限
-        return web -> web.ignoring().antMatchers("/actuator/**", "/css/**", "/error");
+        return web -> web.ignoring().requestMatchers("/actuator/**", "/css/**", "/error");
     }
 
     @Bean
