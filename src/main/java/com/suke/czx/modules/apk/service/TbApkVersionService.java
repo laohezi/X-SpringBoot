@@ -10,6 +10,4 @@ import com.suke.czx.modules.apk.entity.TbApkVersion;
  * @email object_czx@163.com
  * @date 2023-01-26 20:32:33
  */
-public interface TbApkVersionService extends IService<TbApkVersion> {
-
-}
+public interface TbApkVersionService extends IService<TbApkVersion> { }
